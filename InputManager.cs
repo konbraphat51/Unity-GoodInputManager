@@ -488,7 +488,12 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
 
                 case KeyAction.InputType.GetKeyDown:
                     //run immedietly
-                    action.Invoke();
+
+                    //dontwait==true => already run
+                    if (!action.dontWait)
+                    {
+                        action.Invoke();
+                    }
                     runningActions.Remove(action);
                     break;
 
