@@ -31,3 +31,7 @@ If you want n-pushes, Use SeveralPushesAction. If not, use SimpleAction.
 #### DontWait?
 If true(checke), the action start without waiting next action.  
 The action will be canceled on the next push
+
+## Push key not from key/buttons
+Use Push()  
+You can register this to EventTrigger
