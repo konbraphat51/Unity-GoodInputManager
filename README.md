@@ -7,6 +7,7 @@ Drug&Drop public methods to the array in the editor, when you push the key, the 
 * You can register method on editor. 
 * High-Level-Support of n-times-pushes  
 You can do just like "shortly walk (1st push) before run (2nd push).
+![sasa_20230204_161340](https://user-images.githubusercontent.com/101827492/216756425-631cf050-f2e0-4272-acf4-3f42198ab7c1.gif)
 * Integration of key, button, function pushes(such as TriggerEvent)
 * You can register by code too
 
