@@ -38,7 +38,17 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
     private Dictionary<UnityAction, string> actionToKey = new Dictionary<UnityAction, string>();
 
     [Tooltip("Button Name -> Key Name")]
-    [SerializeField] private Dictionary<string, string> buttonsInterpretations = new Dictionary<string, string>();
+    [SerializeField] private ButtonInterpretation[] buttonsInterpretations;
+
+    //Button Name -> Key Name
+    private Dictionary<string, string> buttonsDictionary = new Dictionary<string, string>();
+
+    [System.Serializable]
+    public class ButtonInterpretation
+    {
+        public string keyName;
+        public string buttonName;
+    }
 
     //contains infomations of several push keys
     private class KeyTimer
@@ -97,6 +107,8 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
     private void Start()
     {
         InitializeSeveralPushesKeys();
+
+        InitializeButtonInterpretation();
 
         UpdateIsPushedIndex();
     }
@@ -279,11 +291,11 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
         }
 
         //check buttons
-        foreach(string buttonName in buttonsInterpretations.Keys)
+        foreach(string buttonName in buttonsDictionary.Keys)
         {
             if (Input.GetButton(buttonName))
             {
-                isPushed[buttonsInterpretations[buttonName]] = true;
+                isPushed[buttonsDictionary[buttonName]] = true;
             }
         }
 
@@ -508,6 +520,21 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
 
         //get rid of duplicates
         severalPushesKeys = newList.Distinct().ToList();
+    }
+
+    /// <summary>
+    /// Call this if interpretation changed
+    /// </summary>
+    private void InitializeButtonInterpretation()
+    {
+        //reset
+        buttonsDictionary = new Dictionary<string, string>();
+
+        //register all
+        foreach(ButtonInterpretation interpretation in buttonsInterpretations)
+        {
+            buttonsDictionary[interpretation.buttonName] = interpretation.keyName;
+        }
     }
 
     /// <summary>
